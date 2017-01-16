@@ -1,0 +1,102 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+# NS: in order for snippets to work well, change autocomplete settings to fill on enter (not tab)
+'.source.python':
+  'pd merge':
+    'prefix': 'me'
+    'body': '${1:newdf} = pd.merge(x=${2:df1}, y=${3:df2}, on=[\'${4:var}\'], how=\'${5:inner}\')'
+    'description': 'merge two pandas dataframes'
+
+  'pd dropcol':
+    'prefix': 'drop'
+    'body': '${1:df}.drop([${2:oldvar}], axis=1, inplace=True)'
+    'description': 'Drop column from pandas dataframe'
+
+  'pd rename':
+    'prefix': 'ren'
+    'body': '${1:df}.rename(columns={${2:\'old\':\'new\'}}, inplace=True)'
+    'description': 'rename columns in pandas dataframe'
+
+  'pd loc isin':
+    'prefix': 'locin'
+    'body': '${1:newdf} = ${2:df}.loc[${2:df}[\'${3:var}\'].isin([${4:\'value\'}]) == True, :].copy()'
+    'description': 'define new data frame as subset of old'
+
+  'pd loc null':
+    'prefix': 'locnull'
+    'body': '${1:newdf} = ${2:df}.loc[${2:df}[\'${3:var}\'].isnull() == True, :].copy()'
+    'description': 'grab records where variable is null'
+
+  'pd melt':
+    'prefix': 'melt'
+    'body': '${1:newdf} = pd.melt(${2:df}, id_vars=[\'${3:var}\'])'
+    'description': 'melt data frame from wide to long'
+
+  'pd multi id pivot':
+    'prefix': 'piv'
+    'body': """
+      ${1:newdf} = ${2:df}[[${3:\'byvars\'}, ${4:\'flipvar\'}, ${5:\'numvar\'}]].set_index([${3:\'byvars\'}, ${4:\'flipvar\'}]).unstack(${4:\'flipvar\'})
+      ${1:newdf}.columns = ${1:newdf}.columns.droplevel(0)
+      ${1:newdf}.reset_index(inplace=True)
+      $6
+    """
+
+  'pd replace values in column':
+    'prefix': 'rep'
+    'body': """
+      ${1:valuemap} = {
+        ${2:\'oldval\':\'newval\'}
+      }
+      ${3:df}[\'${4:var_to_update}\'].replace(${1:valuemap}, inplace=True)
+      $5
+    """
+
+  'pd groupby aggregate':
+    'prefix': 'agg'
+    'body': """
+      ${1:grouped} = ${2:df}.groupby([${3:\'byvar1\', \'byvar2\'}], as_index=False)
+      ${4:aggdf} = ${1:grouped}.agg({${5:\'numvar1\':\'sum\', \'numvar2\':\'mean\', \'charvar\':\'nunique\'}})
+      $6
+    """
+    'description': 'aggregate pandas columns - note that NA by groups are DROPPED!'
+
+  'pd drop duplicates':
+    'prefix': 'dedup'
+    'body': '${1:df}.drop_duplicates(subset=[${2:\'byvar1\', \'byvar2\'}], keep=\'last\', inplace=True)'
+    'description': 'drop duplicates in pandas dataframe'
+
+  'pd sort dataframe':
+    'prefix': 'sort'
+    'body': '${1:df}.sort_values([${2:\'var1\', \'var2\'}], na_position=\'first\', ascending=[${3:True, False}], inplace=True)'
+    'description': 'sort pandas dataframe'
+
+  'set working directory':
+    'prefix': 'chdir'
+    'body': """
+      import os
+      os.chdir(os.path.expanduser(\'~\'))
+      os.chdir(r\'./${1:Box Sync/folder}\')
+      print(\'current working directory is \' + os.getcwd())
+      $2
+    """
+    'description': 'set working directory relative to home path'
