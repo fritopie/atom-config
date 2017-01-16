@@ -100,3 +100,24 @@
       $2
     """
     'description': 'set working directory relative to home path'
+    
+  'define function for weighted averages by group':
+    'prefix': 'dwavg'
+    'body': """
+      def wavg(df, byvars, avgvars, weightvar):
+          if type(byvars) is not list:
+              byvar = [byvars]
+          if type(avgvars) is not list:
+              avgvars = [avgvars]
+          allvars = byvars + avgvars + [weightvar,]
+          tmpdf = df[allvars].copy()
+          tmpdf.fillna(0, inplace=True)
+          for x in avgvars:
+              tmpdf[x] = tmpdf[x] * tmpdf[weightvar]
+          new = tmpdf.groupby(byvars, as_index=False).sum()
+          for x in avgvars:
+              new[x] = new[x] / new[weightvar]
+          new.drop([weightvar], axis=1, inplace=True)
+          return new
+    """
+    'description': 'define function for weighted averages by group in pandas'
