@@ -60,7 +60,14 @@
       ${1:newdf}.reset_index(inplace=True)
       $6
     """
-
+  'pd multi id pivot v2':
+    'prefix': 'piv2'
+    'body': """
+      new1 = pd.pivot_table(df,
+          values='val', # values column
+          index=['a', 'j'], # these stay as columns; will fail silently if any of these cols have null values
+          columns=['h']) # data values in this column become their own columns
+    """
   'pd replace values in column':
     'prefix': 'rep'
     'body': """
