@@ -128,3 +128,19 @@
           return new
     """
     'description': 'define function for weighted averages by group in pandas'
+    
+  'header to define program purpose':
+    'prefix': 'head'
+    'body': """
+      #########################################################################
+      # Purpose:      $1
+      # Date Created: $2
+      # Author:       $3
+      # Inputs:       $4
+      # Outputs:      $5
+      # Environment:  $6
+      # Other Notes:  $7
+      #########################################################################
+      $8
+    """
+    'description': 'header comment block'

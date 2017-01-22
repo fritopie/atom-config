@@ -7,3 +7,5 @@ storage
 .npm
 
 packages/
+config.cson
+init.coffee
