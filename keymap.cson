@@ -31,5 +31,5 @@
 # Atom Flight Manual:
 # http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
 
-'.platform-linux atom-workspace, .platform-win32 atom-workspace':
+'.platform-linux atom-workspace, .platform-win32 atom-workspace, .platform-darwin atom-workspace':
   'f9': 'platformio-ide-terminal:insert-selected-text'
