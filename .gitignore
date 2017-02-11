@@ -9,3 +9,4 @@ storage
 packages/
 config.cson
 init.coffee
+nohup.out
